@@ -38,8 +38,6 @@ namespace My_Final_Flappy
         Rectangle groundRect;
         Vector2 groundSpeed;
 
-        int score;
-
         Player patrick;
 
         public Game1()
@@ -55,7 +53,6 @@ namespace My_Final_Flappy
             _graphics.ApplyChanges(); // Applies the new dimensions
             // TODO: Add your initialization logic here
             screen = Screen.Intro;
-            score = 0;
             barriers = new List<Rectangle>();
             barriers.Add(new Rectangle(300, 450, 65, 250)); // First Barrier
             barriers.Add(new Rectangle(300, 0, 65, 250)); // First Barrier
@@ -140,9 +137,6 @@ namespace My_Final_Flappy
             {
                 screen = Screen.Intro;
             }
-            ///////////////
-            ///
-
 
             if (keyboardState.IsKeyDown(Keys.Space))
                 patrick.VSpeed = -15;
@@ -159,7 +153,8 @@ namespace My_Final_Flappy
             if (screen == Screen.Dead)
             {
                 _spriteBatch.Draw(houseTexture, houseRect, Color.White);
-                _spriteBatch.DrawString(titleText, "Loser TESTING", new Vector2(20, 25), Color.Red);
+                _spriteBatch.DrawString(titleText, "YOU DIED", new Vector2(20, 125), Color.Red);
+                _spriteBatch.DrawString(titleText, "Space to replay", new Vector2(0, 250), Color.Red);
             }
             else if (screen == Screen.Intro)
             {
