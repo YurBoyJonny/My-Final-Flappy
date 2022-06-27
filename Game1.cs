@@ -17,7 +17,7 @@ namespace My_Final_Flappy
         }
         Screen screen;
 
-        List<Rectangle> barriers;
+        List<Rectangle> walls;
 
         KeyboardState keyboardState;
         MouseState mouseState;
@@ -53,13 +53,11 @@ namespace My_Final_Flappy
             _graphics.ApplyChanges(); // Applies the new dimensions
             // TODO: Add your initialization logic here
             screen = Screen.Intro;
-            barriers = new List<Rectangle>();
-            barriers.Add(new Rectangle(300, 450, 65, 250)); // First Barrier
-            barriers.Add(new Rectangle(300, 0, 65, 250)); // First Barrier
+            walls = new List<Rectangle>();
+            walls.Add(new Rectangle(300, 450, 65, 250)); // First Barrier
+            walls.Add(new Rectangle(300, 0, 65, 250)); // First Barrier
 
-            barriers.Add(new Rectangle(450, 0, 65, 250));
-
-            barriers.Add(new Rectangle(0, 0, 500, 0)); // Roof
+            walls.Add(new Rectangle(0, 0, 500, 0)); // Roof
 
             base.Initialize();
             patrick = new Player(patrickTexture, 50, 350);
@@ -97,6 +95,7 @@ namespace My_Final_Flappy
                 groundRect.X += (int)groundSpeed.X;
                 groundSpeed.X = -5;
 
+
                 patrick.VSpeed = 1;
 
             }
@@ -126,7 +125,7 @@ namespace My_Final_Flappy
 
             patrick.Update();
 
-            foreach (Rectangle barrier in barriers)
+            foreach (Rectangle barrier in walls)
                 if (patrick.Collide(barrier) || patrick.Collide(groundRect))
                 {
                     patrick.UndoMove();
@@ -141,7 +140,6 @@ namespace My_Final_Flappy
             if (keyboardState.IsKeyDown(Keys.Space))
                 patrick.VSpeed = -15;
             patrick.Update();
-
 
             base.Update(gameTime);
         }
@@ -165,11 +163,12 @@ namespace My_Final_Flappy
             }
             else if (screen == Screen.Main)
             {
+                _spriteBatch.Draw(houseTexture, houseRect, Color.White);
                 _spriteBatch.Draw(groundTexture, groundRect, Color.White);
                 patrick.Draw(_spriteBatch);
 
-                foreach (Rectangle barrier in barriers)
-                    _spriteBatch.Draw(wallTexture, barrier, Color.White);
+                foreach (Rectangle wall in walls)
+                    _spriteBatch.Draw(wallTexture, wall, Color.White);
             }
             _spriteBatch.End();
             base.Draw(gameTime);

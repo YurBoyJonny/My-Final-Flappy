@@ -6,12 +6,12 @@ using System.Text;
 
 namespace My_Final_Flappy
 {
-    class Barrier
+    internal class Wall
     {
         private Texture2D _texture;
         private Rectangle _location;
         private Vector2 _speed; // _speed.X is horizontal speed, _speed.Y is vertical speed
-        public Barrier(Texture2D texture, int x, int y)
+        public Wall(Texture2D texture, int x, int y)
         {
             _texture = texture;
             _location = new Rectangle(x, y, 100, 100);
